@@ -80,6 +80,7 @@ def fcfs():
 
     #==============================
     # COMPUTE SYSTEM PERFORMANCE
+    #==============================
     cpu_busy_time = sum(burst_time)
     avg_waiting_time = total_waiting / process_count
     avg_turnaround_time = total_turnaround / process_count
