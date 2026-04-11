@@ -3,7 +3,10 @@
 
 def sjf():
 
-    # { ENTER INPUTS }
+    #==============================
+    # INPUT
+    #==============================
+
     process_count = int(input("ENTER process count: "))
 
     print("ENTER arrival times:")
@@ -12,7 +15,7 @@ def sjf():
     print("ENTER burst times:")
     burst_time = [int(input(f"P{i+1}: ")) for i in range(process_count)]
 
-    # { INITIALIZE VARIABLES }
+    # Track completed processes
     completed = [False] * process_count
 
     start_time = [0] * process_count
@@ -23,20 +26,25 @@ def sjf():
 
     gantt_chart = []
     gantt_time = [0]
+
     cpu_idle_time = 0
 
-    # { MAIN SJF LOOP }
+    #==============================
+    # Main SJF loop
+    #==============================
     while done < process_count:
 
         idx = -1
         min_burst = float('inf')
 
+        # Find the shortest job among the arrived processes
         for i in range(process_count):
             if arrival_time[i] <= current_time and not completed[i]:
                 if burst_time[i] < min_burst:
                     min_burst = burst_time[i]
                     idx = i
 
+        # If no process available, CPU is Idle
         if idx == -1:
             gantt_chart.append("Idle")
             current_time
@@ -44,6 +52,7 @@ def sjf():
             cpu_idle_time += 1
             continue
 
+        # Execute selected process
         start_time[idx] = current_time
         gantt_chart.append(f"P{idx+1}")
 
@@ -55,7 +64,9 @@ def sjf():
         completed[idx] = True
         done += 1
 
-    # { COMPUTE PROCESS TABLE }
+    #==============================
+    # COMPUTE PROCESS TABLE
+    #==============================
     turnaround_time = []
     waiting_time = []
 
@@ -73,15 +84,18 @@ def sjf():
         total_turnaround += tat
         total_waiting += wt
 
-    # { SYSTEM PERFORMANCE }
-
+    #==============================
+    # COMPUTE SYSTEM PERFORMANCE
+    #==============================
     cpu_busy_time = sum(burst_time)
     total_time = gantt_time[-1]
 
     cpu_util = (cpu_busy_time / total_time) * 100
     throughput = process_count / total_time
 
-    # { PRINT GANTT CHART }
+    #==============================
+    # PRINT GANTT CHART
+    #==============================
     print("\nGANTT CHART:")
     for p in gantt_chart:
         print(f"| {p} ", end="")
@@ -91,14 +105,18 @@ def sjf():
         print(t, end="    ")
     print()
 
-    # { PRINT PROCESS TABLE }
+    #==============================
+    # PRINT PROCESS TABLE
+    #==============================
     print("\nPROCESS TABLE")
     print("Process\tTurnaround\tWaiting")
 
     for i in range(process_count):
         print(f"P{i+1}\t{turnaround_time[i]}\t\t{waiting_time[i]}")
 
-    # { PRINT SYSTEM PERFORMANCE }
+    #==============================
+    # PRINT SYSTEM PERFORMANCE
+    #==============================
     print("\nSYSTEM PERFORMANCE")
     print("CPU Busy Time:", cpu_busy_time)
     print("CPU Idle Time:", cpu_idle_time)
