@@ -3,6 +3,10 @@
 
 def fcfs():
 
+    #==============================
+    # INPUT SECTION
+    #==============================
+
     # { ENTER INPUTS }
     process_count = int(input("ENTER process count: "))
 
@@ -17,7 +21,9 @@ def fcfs():
     for i in range(process_count):
         burst_time.append(int(input(f"P{i+1}: ")))
 
-    # { SORT PROCESSES BASED ON ARRIVAL TIME }
+    #==============================
+    # SORT PROCESSES BY ARRIVAL TIME
+    #==============================
     processes = list(range(process_count))
     processes.sort(key=lambda x: arrival_time[x])
 
@@ -29,7 +35,9 @@ def fcfs():
     gantt_chart = []
     gantt_time = [0]
 
-    # { MAIN FCFS LOOP }
+    #==============================
+    # MAIN FCFS LOOP
+    #==============================
     for i in processes:
 
         if current_time < arrival_time[i]:
@@ -43,7 +51,9 @@ def fcfs():
         finish_time[i] = current_time
         gantt_time.append(current_time)
 
-    # { COMPUTE PROCESS TABLE }
+    #==============================
+    # COMPUTE PROCESS TABLE
+    #==============================
     turnaround_time = []
     waiting_time = []
 
@@ -61,7 +71,9 @@ def fcfs():
         total_turnaround += tat
         total_waiting += wt
 
-    # { SYSTEM PERFORMANCE }
+    #==============================
+    # COMPUTE SYSTEM PERFORMANCE
+    cpu_busy_time = sum(burst_time)
     avg_waiting_time = total_waiting / process_count
     avg_turnaround_time = total_turnaround / process_count
 
@@ -72,7 +84,9 @@ def fcfs():
     cpu_utilization = (cpu_busy_time / total_time) * 100
     throughput = process_count / total_time
 
-    # { PRINT GANTT CHART }
+    #==============================
+    # PRINT GANTT CHART
+    #==============================
     print("\nGANTT CHART:")
     for p in gantt_chart:
         print(f"| {p} ", end="")
@@ -82,14 +96,18 @@ def fcfs():
         print(t, end="    ")
     print()
 
-    # { PRINT PROCESS TABLE }
+    #==============================
+    # PRINT PROCESS TABLE
+    #==============================
     print("\nPROCESS TABLE")
     print("Process\tTurnaround\tWaiting")
 
     for i in range(process_count):
         print(f"P{i+1}\t{turnaround_time[i]}\t\t{waiting_time[i]}")
 
-    # { PRINT SYSTEM PERFORMANCE }
+    #==============================
+    # PRINT SYSTEM PERFORMANCE
+    #==============================
     print("\nSYSTEM PERFORMANCE")
     print("CPU Busy Time:", cpu_busy_time)
     print("CPU Idle Time:", cpu_idle_time)
