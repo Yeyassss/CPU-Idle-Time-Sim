@@ -6,19 +6,15 @@ def sjf():
     # { ENTER INPUTS }
     process_count = int(input("ENTER process count: "))
 
-    arrival_time = []
-    burst_time = []
-
     print("ENTER arrival times:")
-    for i in range(process_count):
-        arrival_time.append(int(input(f"P{i+1}: ")))
+    arrival_time = [int(input(f"P{i+1}: ")) for i in range(process_count)]  
 
     print("ENTER burst times:")
-    for i in range(process_count):
-        burst_time.append(int(input(f"P{i+1}: ")))
+    burst_time = [int(input(f"P{i+1}: ")) for i in range(process_count)]
 
     # { INITIALIZE VARIABLES }
     completed = [False] * process_count
+
     start_time = [0] * process_count
     finish_time = [0] * process_count
 
@@ -41,7 +37,10 @@ def sjf():
                     idx = i
 
         if idx == -1:
+            gantt_chart.append("Idle")
             current_time += 1
+            gantt_chart.append("Idle")
+            cpu_idle_time += 1
             continue
 
         start_time[idx] = current_time
