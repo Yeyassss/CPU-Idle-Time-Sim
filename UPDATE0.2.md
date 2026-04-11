@@ -1,6 +1,3 @@
-# CPU-Idle-Time-Sim
-Files and Folders for the CPU Idle Time Simulator
-
 # 04/11/2026 (Saturday Update)
 
 Fixes:
