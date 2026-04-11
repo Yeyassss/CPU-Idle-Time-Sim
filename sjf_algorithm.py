@@ -23,6 +23,7 @@ def sjf():
 
     gantt_chart = []
     gantt_time = [0]
+    cpu_idle_time = 0
 
     # { MAIN SJF LOOP }
     while done < process_count:
@@ -38,8 +39,8 @@ def sjf():
 
         if idx == -1:
             gantt_chart.append("Idle")
-            current_time += 1
-            gantt_chart.append("Idle")
+            current_time
+            gantt_time.append(current_time)
             cpu_idle_time += 1
             continue
 
@@ -73,14 +74,11 @@ def sjf():
         total_waiting += wt
 
     # { SYSTEM PERFORMANCE }
-    avg_waiting_time = total_waiting / process_count
-    avg_turnaround_time = total_turnaround / process_count
 
     cpu_busy_time = sum(burst_time)
     total_time = gantt_time[-1]
 
-    cpu_idle_time = total_time - cpu_busy_time
-    cpu_utilization = (cpu_busy_time / total_time) * 100
+    cpu_util = (cpu_busy_time / total_time) * 100
     throughput = process_count / total_time
 
     # { PRINT GANTT CHART }
@@ -104,11 +102,9 @@ def sjf():
     print("\nSYSTEM PERFORMANCE")
     print("CPU Busy Time:", cpu_busy_time)
     print("CPU Idle Time:", cpu_idle_time)
-    print("CPU Utilization:", cpu_utilization)
+    print("CPU Utilization:", cpu_util)
     print("Throughput:", throughput)
-    print("Average Waiting Time:", avg_waiting_time)
-    print("Average Turnaround Time:", avg_turnaround_time)
+    print("Average Waiting Time:", total_waiting/process_count)
+    print("Average Turnaround Time:", total_turnaround/process_count)
 
-
-# run program
 sjf()
